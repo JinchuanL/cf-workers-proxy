@@ -20,6 +20,13 @@ Cloudflare Workers HTTP 反向代理
 
 理论上支持代理任何被屏蔽的域名，只需要设置环境变量 PROXY_HOSTNAME 为被屏蔽的域名，最后通过你的 worker 自定义域名访问即可
 
+## 步骤
+
+1. Cloudflare新建Worker，待创建HelloWorld Worker创建成功后点击编辑代码
+2. 拷贝`_worker.js`的代码到worker里完成编辑
+3. **（必做）**新建环境变量`PROXY_HOSTNAME`，值为你想访问的网站。例如`github.com`或`hub.docker.com`
+4. （可选）新建环境变量`IP_WHITELIST_REGEX`，值为你的公网IP地址。多个IP间用`|`分隔。
+
 ## 部署
 
 - Workers 方式: 复制 [_worker.js](_worker.js) ，在 [Cloudflare](https://www.cloudflare.com) 保存并部署
@@ -35,19 +42,19 @@ Cloudflare Workers HTTP 反向代理
 
 ## 环境变量
 
-| 变量名                    | 必填  | 默认值   | 示例                                             | 备注                  |
-|------------------------|-----|-------|------------------------------------------------|---------------------|
-| PROXY_HOSTNAME         | √   |       | github.com                                     | 代理地址 hostname       |
-| PROXY_PROTOCOL         | ×   | https | https                                          | 代理地址协议              |
-| PATHNAME_REGEX         | ×   |       | ^/jonssonyan/                                  | 代理地址路径正则表达式         |
-| UA_WHITELIST_REGEX     | ×   |       | (curl)                                         | User-Agent 白名单正则表达式 |
-| UA_BLACKLIST_REGEX     | ×   |       | (curl)                                         | User-Agent 黑名单正则表达式 |
-| IP_WHITELIST_REGEX     | ×   |       | (192.168.0.1)                                  | IP 白名单正则表达式         |
-| IP_BLACKLIST_REGEX     | ×   |       | (192.168.0.1)                                  | IP 黑名单正则表达式         |
-| REGION_WHITELIST_REGEX | ×   |       | (JP)                                           | 地区白名单正则表达式          |
-| REGION_BLACKLIST_REGEX | ×   |       | (JP)                                           | 地区黑名单正则表达式          |
-| URL302                 | ×   |       | https://github.com/jonssonyan/cf-workers-proxy | 302 跳转地址            |
-| DEBUG                  | ×   | false | false                                          | 开启调试                |
+| 变量名                 | 必填 | 默认值 | 示例                                           | 备注                        |
+| ---------------------- | ---- | ------ | ---------------------------------------------- | --------------------------- |
+| PROXY_HOSTNAME         | √    |        | github.com                                     | 代理地址 hostname           |
+| PROXY_PROTOCOL         | ×    | https  | https                                          | 代理地址协议                |
+| PATHNAME_REGEX         | ×    |        | ^/jonssonyan/                                  | 代理地址路径正则表达式      |
+| UA_WHITELIST_REGEX     | ×    |        | (curl)                                         | User-Agent 白名单正则表达式 |
+| UA_BLACKLIST_REGEX     | ×    |        | (curl)                                         | User-Agent 黑名单正则表达式 |
+| IP_WHITELIST_REGEX     | ×    |        | (192.168.0.1\|110.11.25.12)                    | IP 白名单正则表达式         |
+| IP_BLACKLIST_REGEX     | ×    |        | (192.168.0.1)                                  | IP 黑名单正则表达式         |
+| REGION_WHITELIST_REGEX | ×    |        | (JP)                                           | 地区白名单正则表达式        |
+| REGION_BLACKLIST_REGEX | ×    |        | (JP)                                           | 地区黑名单正则表达式        |
+| URL302                 | ×    |        | https://github.com/jonssonyan/cf-workers-proxy | 302 跳转地址                |
+| DEBUG                  | ×    | false  | false                                          | 开启调试                    |
 
 ## 镜像仓库加速
 
